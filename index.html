@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Income Expense Calculator</title>
+  <link rel="stylesheet" href="script.js">
+  <!-- Tailwind via CDN (good for prototyping) -->
+  <!--<script src="https://cdn.tailwindcss.com"></script> -->
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+</head>
+<body class="bg-[#5B532C] ... min-h-screen p-20">
+  <div class="max-w-6xl mx-auto">
+    <!-- Header -->
+    <header class="mb-10">
+      <h1 class="text-4xl font-semibold text-white">Income Expense Calculator</h1>
+      <!-- <p class="text-sm text-white-500">Add, edit, filter transactions. Data is saved locally in your browser.</p> -->
+    </header>
+
+    <!-- Summary cards -->
+    <section class="grid grid-cols-1 md:grid-cols-3 gap-20 mb-6">
+      <div class="bg-[#63A361] ... rounded-xl shadow-md p-4">
+        <div class="text-sm text-black-500">Total Income</div>
+        <div id="totalIncome" class="text-2xl font-bold text-green-900 mt-3">₹ 0</div>
+      </div>
+      <div class="bg-[#63A361] ... rounded-xl shadow-md p-4">
+        <div class="text-sm text-black-500">Total Expense</div>
+        <div id="totalExpense" class="text-2xl font-bold text-red-600 mt-3">₹ 0</div>
+      </div>
+      <div class="bg-[#63A361] ... rounded-xl shadow-md p-4">
+        <div class="text-sm text-black-500">Net Balance</div>
+        <div id="netBalance" class="text-2xl font-bold text-green-900 mt-3">₹ 0</div>
+      </div>
+    </section>
+
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-20">
+      <!-- Form -->
+      <aside class="lg:col-span-1 bg-[#FDE7B3] ... rounded-2xl shadow-md p-6">
+        <form id="entryForm" class="space-y-3">
+          <input type="hidden" id="editingId" value="">
+
+          <div>
+            <label class="block text-sm font-medium text-gray-700">Description</label>
+            <input id="desc" type="text" placeholder="e.g., Salary, Groceries"
+                   class="mt-1 block w-full rounded-md border-gray-200 shadow-sm p-2" />
+          </div>
+
+          <div>
+            <label class="block text-sm font-medium text-gray-700">Amount</label>
+            <input id="amount" type="number" step="0.01" placeholder="0.00"
+                   class="mt-1 block w-full rounded-md border-gray-200 shadow-sm p-2" />
+          </div>
+
+          <div>
+            <div class="text-sm font-medium text-gray-700">Type</div>
+            <div class="mt-2 flex items-center gap-4">
+              <label class="inline-flex items-center"><input type="radio" name="type" value="income" checked class="mr-2" />Income</label>
+              <label class="inline-flex items-center"><input type="radio" name="type" value="expense" class="mr-2" />Expense</label>
+            </div>
+          </div>
+
+          <div class="flex gap-2">
+            <button id="saveBtn" type="button" class="flex-1 bg-blue-600 text-white py-2 rounded-lg">Add</button>
+            <button id="resetBtn" type="button" class="flex-1 border border-gray-300 py-2 rounded-lg">Reset</button>
+          </div>
+
+          <div class="text-xs text-gray-500">Tip: Click edit on an entries to update it (form will switch to edit mode).</div>
+        </form>
+      </aside>
+
+      <!-- Main list & filters -->
+      <main class="lg:col-span-2">
+        <div class="bg-[#FDE7B3] ... rounded-2xl shadow-md p-4 mb-4 flex items-center justify-between">
+          <div>
+            <span class="text-sm text-gray-500">Filters:</span>
+            <label class="ml-3 inline-flex items-center"><input type="radio" name="filter" value="all" checked class="mr-2" />All</label>
+            <label class="ml-3 inline-flex items-center"><input type="radio" name="filter" value="income" class="mr-2" />Income</label>
+            <label class="ml-3 inline-flex items-center"><input type="radio" name="filter" value="expense" class="mr-2" />Expense</label>
+          </div>
+          <div class="text-sm text-gray-500">Showing <strong id="count">0</strong> entries</div>
+        </div>
+
+        <div id="entries" class="space-y-3">
+          <div id="emptyState" class="bg-[#FDE7B3] ... rounded-2xl shadow-md p-6 text-center text-gray-500">No entries yet. Add your first income or expense.</div>
+        </div>
+      </main>
+    </div>
+
+    <footer class="mt-8 text-xs text-gray-500 text-center"> <code>Income Expense Data</code></footer>
+  </div>
+  <script src="script.js"></script>
+  </body>
+</html>
